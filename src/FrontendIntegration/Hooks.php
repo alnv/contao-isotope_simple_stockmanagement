@@ -12,7 +12,7 @@
  */
 
 
-namespace Richardhj\Isotope\SimpleStockManagement\FrontendIntegration;
+namespace Richardhj\IsotopeSimpleStockManagement\FrontendIntegration;
 
 use Contao\Controller;
 use Contao\Database;
@@ -25,7 +25,7 @@ use Isotope\Model\ProductCollection;
 use Isotope\Model\ProductCollectionItem;
 use Isotope\Module\Checkout;
 use NotificationCenter\Model\Notification;
-use Richardhj\Isotope\SimpleStockManagement\Model\Stock;
+use Richardhj\IsotopeSimpleStockManagement\Model\Stock;
 
 
 /**
@@ -37,15 +37,15 @@ class Hooks
 {
 
     /**
-     * @category ISO_HOOKS: addProductToCollection
-     *
-     * @param Product|Model     $product
-     * @param int               $quantity
+     * @param Product|Model $product
+     * @param int $quantity
      * @param ProductCollection $collection
      *
      * @return int
      *
      * @throws \Exception If type is not a related field of tl_iso_product
+     * @category ISO_HOOKS: addProductToCollection
+     *
      */
     public function checkBeforeAddToCollection(Product $product, $quantity, ProductCollection $collection)
     {
@@ -55,7 +55,7 @@ class Hooks
         }
 
         $quantityInCart = 0;
-        $stock          = Stock::getStockForProduct($product->id);
+        $stock = Stock::getStockForProduct($product->id);
 
         foreach ((array)$collection->getItems() as $item) {
             if ($item->product_id === $product->id) {
@@ -83,15 +83,15 @@ class Hooks
 
 
     /**
-     * @category ISO_HOOKS: updateItemInCollection
-     *
      * @param ProductCollectionItem|Model $item
-     * @param array                       $set
+     * @param array $set
      *
      * @return array
+     * @throws \Exception If type is not a related field of tl_iso_product
      * @internal param ProductCollection $collection
      *
-     * @throws \Exception If type is not a related field of tl_iso_product
+     * @category ISO_HOOKS: updateItemInCollection
+     *
      */
     public function checkBeforeUpdateCollection(ProductCollectionItem $item, $set)
     {
@@ -100,7 +100,7 @@ class Hooks
         }
 
         /** @var Product|Model $product */
-        $product     = $item->getProduct();
+        $product = $item->getProduct();
         $productType = $product->getRelated('type');
 
         if (null === $productType || !$productType->stockmanagement_active) {
@@ -120,13 +120,13 @@ class Hooks
 
 
     /**
-     * @category ISO_HOOKS: itemIsAvailable
-     *
      * @param ProductCollectionItem|Model $item
      *
      * @return false|null Return false but never true
      *
      * @throws \Exception If type is not a related field of tl_iso_product
+     * @category ISO_HOOKS: itemIsAvailable
+     *
      */
     public function checkItemIsAvailable(ProductCollectionItem $item)
     {
@@ -152,22 +152,22 @@ class Hooks
 
 
     /**
-     * @category ISO_HOOKS: preCheckout
-     *
      * @param ProductCollection\Order $order
-     * @param Checkout                $checkout
+     * @param Checkout $checkout
      *
      * @return bool
      *
      * @throws \Exception If type is not a related field of tl_iso_product
+     * @category ISO_HOOKS: preCheckout
+     *
      */
     public function checkBeforeCheckout(ProductCollection\Order $order, Checkout $checkout)
     {
         foreach ($order->getItems() as $item) {
             /** @var Product|Model $product */
-            $product     = $item->getProduct();
+            $product = $item->getProduct();
             $productType = $product->getRelated('type');
-            $stock       = Stock::getStockForProduct($product->id);
+            $stock = Stock::getStockForProduct($product->id);
 
             if (null !== $productType
                 && ($productType->stockmanagement_active && false !== $stock
@@ -193,30 +193,30 @@ class Hooks
 
 
     /**
-     * @category ISO_HOOKS: postCheckout
-     *
      * @param ProductCollection\Order $order
      *
+     * @throws \Exception If type is not a related field of tl_iso_product
      * @internal param array $tokens
      *
-     * @throws \Exception If type is not a related field of tl_iso_product
+     * @category ISO_HOOKS: postCheckout
+     *
      */
     public function updateStockPostCheckout(ProductCollection\Order $order)
     {
         foreach ($order->getItems() as $item) {
             /** @var Product|Model $product */
-            $product     = $item->getProduct();
+            $product = $item->getProduct();
             $productType = $product->getRelated('type');
 
             if (null !== $productType && $productType->stockmanagement_active) {
                 // Book stock change
                 /** @var Stock|Model $stockChange */
-                $stockChange                        = new Stock();
-                $stockChange->tstamp                = time();
-                $stockChange->pid                   = $product->id;
+                $stockChange = new Stock();
+                $stockChange->tstamp = time();
+                $stockChange->pid = $product->id;
                 $stockChange->product_collection_id = $order->id;
-                $stockChange->quantity              = -1 * (int)$item->quantity;
-                $stockChange->source                = Stock::STOCKMANAGEMENT_SOURCE_ORDER;
+                $stockChange->quantity = -1 * (int)$item->quantity;
+                $stockChange->source = Stock::STOCKMANAGEMENT_SOURCE_ORDER;
                 $stockChange->save();
 
                 // Fetch current stock
@@ -234,7 +234,7 @@ class Hooks
                 if ($productType->stockmanagement_notification) {
                     if (false === $stock) {
                         System::log(
-                            'Product ID '.$product->id.' haven\'t stocked up yet. Please set initial stock.',
+                            'Product ID ' . $product->id . ' haven\'t stocked up yet. Please set initial stock.',
                             __METHOD__,
                             TL_GENERAL
                         );
@@ -265,7 +265,7 @@ class Hooks
 
 
     /**
-     * @param Product|Model                 $product
+     * @param Product|Model $product
      * @param ProductCollection\Order|Model $order
      *
      * @return array
@@ -281,16 +281,16 @@ class Hooks
         $config = $order->getRelated('config_id');
 
         foreach ($product->row() as $k => $v) {
-            $tokens['product_'.$k] = $v;
+            $tokens['product_' . $k] = $v;
         }
 
         foreach ($order->row() as $k => $v) {
-            $tokens['order_'.$k] = $v;
+            $tokens['order_' . $k] = $v;
         }
 
         if (null !== $config) {
             foreach ((array)$config->row() as $k => $v) {
-                $tokens['config_'.$k] = $v;
+                $tokens['config_' . $k] = $v;
             }
         }
 

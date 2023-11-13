@@ -12,7 +12,7 @@
  */
 
 
-namespace Richardhj\Isotope\SimpleStockManagement\Model;
+namespace Richardhj\IsotopeSimpleStockManagement\Model;
 
 use Contao\Model;
 
@@ -20,11 +20,11 @@ use Contao\Model;
 /**
  * Class Stock
  *
- * @property int    $tstamp
- * @property int    $pid
- * @property int    $product_collection_id
- * @property int    $quantity
- * @property int    $source
+ * @property int $tstamp
+ * @property int $pid
+ * @property int $product_collection_id
+ * @property int $quantity
+ * @property int $source
  * @property string $comment
  * @package Isotope\Model
  */
@@ -34,9 +34,9 @@ class Stock extends Model
     /**
      * Stock management sources
      */
-    const STOCKMANAGEMENT_SOURCE_ORDER   = 'order';
+    const STOCKMANAGEMENT_SOURCE_ORDER = 'order';
     const STOCKMANAGEMENT_SOURCE_BACKEND = 'backend';
-    const STOCKMANAGEMENT_SOURCE_IMPORT  = 'import';
+    const STOCKMANAGEMENT_SOURCE_IMPORT = 'import';
 
 
     /**

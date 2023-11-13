@@ -11,7 +11,7 @@
  * @license   https://github.com/richardhj/contao-isotope_simple_stockmanagement/blob/master/LICENSE LGPL-3.0
  */
 
-use Richardhj\Isotope\SimpleStockManagement\BackendIntegration\LabelCallbackListener;
+use Richardhj\IsotopeSimpleStockManagement\BackendIntegration\LabelCallbackListener;
 
 $table = Isotope\Model\Product::getTable();
 
@@ -24,27 +24,27 @@ $GLOBALS['TL_DCA'][$table]['list']['label']['label_callback'] = [LabelCallbackLi
  * Fields
  */
 $GLOBALS['TL_DCA'][$table]['fields']['stock'] = [
-    'label'        => &$GLOBALS['TL_LANG'][$table]['stock'],
-    'inputType'    => 'dcaWizard',
-    'foreignTable' => Richardhj\Isotope\SimpleStockManagement\Model\Stock::getTable(),
-    'params'       => [
+    'label' => &$GLOBALS['TL_LANG'][$table]['stock'],
+    'inputType' => 'dcaWizard',
+    'foreignTable' => Richardhj\IsotopeSimpleStockManagement\Model\Stock::getTable(),
+    'params' => [
         'mode' => 2,
-        'pid'  => Contao\Input::get('id'),
-        'act'  => 'create',
+        'pid' => Contao\Input::get('id'),
+        'act' => 'create',
     ],
-    'eval'         => [
-        'fields'          => ['quantity', 'source', 'product_collection_id', 'comment', 'tstamp'],
+    'eval' => [
+        'fields' => ['quantity', 'source', 'product_collection_id', 'comment', 'tstamp'],
         'editButtonLabel' => $GLOBALS['TL_LANG'][$table]['stock_create_button'],
-        'orderField'      => 'tstamp ASC',
-        'showOperations'  => true,
-        'operations'      => ['show'],
-        'listCallback'    => [
-            Richardhj\Isotope\SimpleStockManagement\BackendIntegration\Dca::class,
+        'orderField' => 'tstamp ASC',
+        'showOperations' => true,
+        'operations' => ['show'],
+        'listCallback' => [
+            Richardhj\IsotopeSimpleStockManagement\BackendIntegration\Dca::class,
             'generateWizardList',
         ],
-        'tl_class'        => 'clr',
+        'tl_class' => 'clr',
     ],
-    'attributes'   => [
+    'attributes' => [
         'legend' => 'inventory_legend',
     ],
 ];

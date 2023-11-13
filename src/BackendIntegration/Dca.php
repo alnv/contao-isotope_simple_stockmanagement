@@ -12,11 +12,9 @@
  */
 
 
-namespace Richardhj\Isotope\SimpleStockManagement\BackendIntegration;
+namespace Richardhj\IsotopeSimpleStockManagement\BackendIntegration;
 
-use Database_Result;
 use DcaWizard;
-use DOMDocument;
 use Contao\BackendTemplate;
 use Contao\Image;
 use Contao\System;
@@ -32,7 +30,7 @@ class Dca
 {
 
     /**
-     * @param Database_Result $records
+     * @param $records
      * @param string          $id
      * @param DcaWizard       $dcaWizard
      *

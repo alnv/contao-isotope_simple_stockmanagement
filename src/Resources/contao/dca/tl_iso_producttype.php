@@ -20,13 +20,13 @@ $table = Isotope\Model\ProductType::getTable();
  */
 $GLOBALS['TL_DCA'][$table]['palettes']['__selector__'][] = 'stockmanagement_active';
 $GLOBALS['TL_DCA'][$table]['palettes']['__selector__'][] = 'stockmanagement_notification';
-$GLOBALS['TL_DCA'][$table]['palettes']['standard']       .= ';{stockmanagement_legend},stockmanagement_active';
+$GLOBALS['TL_DCA'][$table]['palettes']['standard'] .= ';{stockmanagement_legend},stockmanagement_active';
 
 
 /**
  * SubPalettes
  */
-$GLOBALS['TL_DCA'][$table]['subpalettes']['stockmanagement_active']       =
+$GLOBALS['TL_DCA'][$table]['subpalettes']['stockmanagement_active'] =
     'stockmanagement_disableProduct,stockmanagement_notification';
 $GLOBALS['TL_DCA'][$table]['subpalettes']['stockmanagement_notification'] = 'stockmanagement_notifications';
 
@@ -35,44 +35,44 @@ $GLOBALS['TL_DCA'][$table]['subpalettes']['stockmanagement_notification'] = 'sto
  * Fields
  */
 $GLOBALS['TL_DCA'][$table]['fields']['stockmanagement_active'] = [
-    'label'     => &$GLOBALS['TL_LANG'][$table]['stockmanagement_active'],
+    'label' => &$GLOBALS['TL_LANG'][$table]['stockmanagement_active'],
     'inputType' => 'checkbox',
-    'eval'      => [
-        'tl_class'       => 'w50',
+    'eval' => [
+        'tl_class' => 'w50',
         'submitOnChange' => true,
     ],
-    'sql'       => "char(1) NOT NULL default ''",
+    'sql' => "char(1) NOT NULL default ''",
 ];
 
 $GLOBALS['TL_DCA'][$table]['fields']['stockmanagement_notification'] = [
-    'label'     => &$GLOBALS['TL_LANG'][$table]['stockmanagement_notification'],
+    'label' => &$GLOBALS['TL_LANG'][$table]['stockmanagement_notification'],
     'inputType' => 'checkbox',
-    'eval'      => [
-        'tl_class'       => 'w50',
+    'eval' => [
+        'tl_class' => 'w50',
         'submitOnChange' => true,
     ],
-    'sql'       => "char(1) NOT NULL default ''",
+    'sql' => "char(1) NOT NULL default ''",
 ];
 
 $GLOBALS['TL_DCA'][$table]['fields']['stockmanagement_notifications'] = [
-    'label'         => &$GLOBALS['TL_LANG'][$table]['stockmanagement_notifications'],
-    'inputType'     => 'multiColumnWizard',
-    'eval'          => [
-        'tl_class'     => 'clr',
+    'label' => &$GLOBALS['TL_LANG'][$table]['stockmanagement_notifications'],
+    'inputType' => 'multiColumnWizard',
+    'eval' => [
+        'tl_class' => 'clr',
         'columnFields' => [
             'threshold' => [
                 'inputType' => 'text',
-                'label'     => &$GLOBALS['TL_LANG'][$table]['stockmanagement_notifications_threshold'],
-                'eval'      => [
-                    'rgxp'      => 'digit',
+                'label' => &$GLOBALS['TL_LANG'][$table]['stockmanagement_notifications_threshold'],
+                'eval' => [
+                    'rgxp' => 'digit',
                     'mandatory' => true,
-                    'style'     => 'width:60px;text-align:right',
+                    'style' => 'width:60px;text-align:right',
                 ],
             ],
-            'nc_id'     => [
-                'inputType'        => 'select',
-                'label'            => &$GLOBALS['TL_LANG'][$table]['stockmanagement_notifications_nc_id'],
-                'eval'             => [
+            'nc_id' => [
+                'inputType' => 'select',
+                'label' => &$GLOBALS['TL_LANG'][$table]['stockmanagement_notifications_nc_id'],
+                'eval' => [
                     'mandatory' => true,
                 ],
                 'options_callback' => function () {
@@ -89,12 +89,12 @@ $GLOBALS['TL_DCA'][$table]['fields']['stockmanagement_notifications'] = [
                 },
             ],
         ],
-        'buttons'      => ['up' => false, 'down' => false],
+        'buttons' => ['up' => false, 'down' => false],
     ],
     'save_callback' => [
         // Sort by threshold ascending
         function ($value) {
-            $value = deserialize($value);
+            $value = \StringUtil::deserialize($value);
 
             $thresholds = array_reduce(
                 $value,
@@ -109,14 +109,14 @@ $GLOBALS['TL_DCA'][$table]['fields']['stockmanagement_notifications'] = [
             return serialize($value);
         },
     ],
-    'sql'           => "text NULL",
+    'sql' => "text NULL",
 ];
 
 $GLOBALS['TL_DCA'][$table]['fields']['stockmanagement_disableProduct'] = [
-    'label'     => &$GLOBALS['TL_LANG'][$table]['stockmanagement_disableProduct'],
+    'label' => &$GLOBALS['TL_LANG'][$table]['stockmanagement_disableProduct'],
     'inputType' => 'checkbox',
-    'eval'      => [
+    'eval' => [
         'tl_class' => 'w50',
     ],
-    'sql'       => "char(1) NOT NULL default ''",
+    'sql' => "char(1) NOT NULL default ''",
 ];

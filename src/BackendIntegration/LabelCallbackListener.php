@@ -11,12 +11,12 @@
  * @license   https://github.com/richardhj/contao-isotope_simple_stockmanagement/blob/master/LICENSE LGPL-3.0
  */
 
-namespace Richardhj\Isotope\SimpleStockManagement\BackendIntegration;
+namespace Richardhj\IsotopeSimpleStockManagement\BackendIntegration;
 
 
 use Contao\System;
 use Isotope\Model\Product;
-use Richardhj\Isotope\SimpleStockManagement\Model\Stock;
+use Richardhj\IsotopeSimpleStockManagement\Model\Stock;
 
 class LabelCallbackListener
 {
@@ -40,7 +40,7 @@ class LabelCallbackListener
 
         $index = array_search('stock', $GLOBALS['TL_DCA']['tl_iso_product']['list']['label']['fields'], true);
 
-        $product     = Product::findByPk($row['id']);
+        $product = Product::findByPk($row['id']);
         $productType = $product->getRelated('type');
         if (null === $productType || !$productType->stockmanagement_active) {
             return $args;
