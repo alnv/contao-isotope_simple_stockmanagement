@@ -20,11 +20,6 @@ use Richardhj\IsotopeSimpleStockManagement\Model\Stock;
 $GLOBALS['BE_MOD']['isotope']['iso_products']['tables'][] = Stock::getTable();
 
 /**
- * Models
- */
-$GLOBALS['TL_MODELS'][Stock::getTable()] = Stock::class;
-
-/**
  * Hooks
  */
 $GLOBALS['ISO_HOOKS']['addProductToCollection'][] = [
@@ -65,3 +60,8 @@ $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['isotope']['iso_stockmanage
 $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['isotope']['iso_stockmanagement_change']['email_replyTo'] = &$GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['isotope']['iso_stockmanagement_change']['recipients'];
 $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['isotope']['iso_stockmanagement_change']['email_recipient_cc'] = &$GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['isotope']['iso_stockmanagement_change']['recipients'];
 $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['isotope']['iso_stockmanagement_change']['email_recipient_bcc'] = &$GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['isotope']['iso_stockmanagement_change']['recipients'];
+
+/**
+ * Models
+ */
+$GLOBALS['TL_MODELS'][Stock::getTable()] = Stock::class;
