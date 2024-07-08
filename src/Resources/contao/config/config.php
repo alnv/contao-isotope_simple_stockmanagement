@@ -1,5 +1,7 @@
 <?php
 
+use Richardhj\IsotopeSimpleStockManagement\Model\Stock;
+
 /**
  * This file is part of richardhj/contao-isotope_simple_stockmanagement.
  *
@@ -15,12 +17,12 @@
 /**
  * Back end modules
  */
-$GLOBALS['BE_MOD']['isotope']['iso_products']['tables'][] = \Richardhj\IsotopeSimpleStockManagement\Model\Stock::getTable();
+$GLOBALS['BE_MOD']['isotope']['iso_products']['tables'][] = Stock::getTable();
 
 /**
  * Models
  */
-$GLOBALS['TL_MODELS'][\Richardhj\Isotope\SimpleStockManagement\Model\Stock::getTable()] = \Richardhj\IsotopeSimpleStockManagement\Model\Stock::class;
+$GLOBALS['TL_MODELS'][Stock::getTable()] = Stock::class;
 
 /**
  * Hooks
