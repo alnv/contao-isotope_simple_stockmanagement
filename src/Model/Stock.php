@@ -47,6 +47,20 @@ class Stock extends Model
     protected static $strTable = 'tl_iso_stock';
 
 
+    public function __construct($objResult = null)
+    {
+
+        if (!static::$strTable) {
+            return null;
+        }
+
+        if (isset(static::$arrClassNames)) {
+            static::$arrClassNames['tl_iso_stock'] = 'Richardhj\IsotopeSimpleStockManagement\Model\Stock';
+        }
+
+        parent::__construct($objResult);
+    }
+
     /**
      * Find all stock entries for one product
      *
