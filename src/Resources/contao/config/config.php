@@ -64,4 +64,4 @@ $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['isotope']['iso_stockmanage
 /**
  * Models
  */
-$GLOBALS['TL_MODELS'][Stock::getTable()] = Stock::class;
+$GLOBALS['TL_MODELS']['tl_iso_stock'] = 'Richardhj\IsotopeSimpleStockManagement\Model\Stock';
