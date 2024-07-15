@@ -47,4 +47,5 @@ $GLOBALS['TL_DCA'][$table]['fields']['stock'] = [
     'attributes' => [
         'legend' => 'inventory_legend',
     ],
+    'sql' => 'blob NULL'
 ];
