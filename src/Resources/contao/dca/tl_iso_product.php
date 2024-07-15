@@ -34,7 +34,7 @@ $GLOBALS['TL_DCA'][$table]['fields']['stock'] = [
     ],
     'eval' => [
         'fields' => ['quantity', 'source', 'product_collection_id', 'comment', 'tstamp'],
-        'editButtonLabel' => $GLOBALS['TL_LANG'][$table]['stock_create_button'],
+        'editButtonLabel' => ($GLOBALS['TL_LANG'][$table]['stock_create_button'] ?? ''),
         'orderField' => 'tstamp ASC',
         'showOperations' => true,
         'operations' => ['show'],

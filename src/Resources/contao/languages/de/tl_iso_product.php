@@ -22,6 +22,11 @@ $GLOBALS['TL_LANG'][$table]['stock'][0] = 'Lagerbestand';
 $GLOBALS['TL_LANG'][$table]['stock'][1] = 'Übersicht über die Ein- und Ausgänge des Lagerbestands von diesem Produkt.';
 
 
+$GLOBALS['TL_LANG'][$table]['quantity'][0] = 'Anzahl';
+$GLOBALS['TL_LANG'][$table]['product_collection_id'][0] = 'Produkt-ID';
+$GLOBALS['TL_LANG'][$table]['comment'][0] = 'Kommentar';
+$GLOBALS['TL_LANG'][$table]['tstamp'][0] = 'Änderungsdatum';
+
 /**
  * Operations
  */

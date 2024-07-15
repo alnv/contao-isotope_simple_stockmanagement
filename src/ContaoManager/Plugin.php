@@ -18,7 +18,8 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface
         return [
             BundleConfig::create('Richardhj\IsotopeSimpleStockManagement\RichardhjIsotopeSimpleStockManagement')
                 ->setLoadAfter([
-                    'Contao\CoreBundle\ContaoCoreBundle'
+                    'Contao\CoreBundle\ContaoCoreBundle',
+                    'isotope'
                 ])
                 ->setReplace(['isotope_simple_stockmanagement']),
         ];

@@ -22,7 +22,6 @@ $GLOBALS['TL_DCA'][$table]['palettes']['__selector__'][] = 'stockmanagement_acti
 $GLOBALS['TL_DCA'][$table]['palettes']['__selector__'][] = 'stockmanagement_notification';
 $GLOBALS['TL_DCA'][$table]['palettes']['standard'] .= ';{stockmanagement_legend},stockmanagement_active';
 
-
 /**
  * SubPalettes
  */

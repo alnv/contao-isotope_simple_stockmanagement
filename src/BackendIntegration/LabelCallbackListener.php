@@ -33,15 +33,14 @@ class LabelCallbackListener
      */
     public function generate($row, $label, $dc, $args)
     {
-        list (
-            $callbackClass, $callbackMethod
-            ) = $GLOBALS['TL_DCA']['tl_iso_product']['list']['label']['label_callback.default'];
+        list ($callbackClass, $callbackMethod) = $GLOBALS['TL_DCA']['tl_iso_product']['list']['label']['label_callback.default'];
         $args = System::importStatic($callbackClass)->{$callbackMethod}($row, $label, $dc, $args);
 
         $index = array_search('stock', $GLOBALS['TL_DCA']['tl_iso_product']['list']['label']['fields'], true);
 
         $product = Product::findByPk($row['id']);
         $productType = $product->getRelated('type');
+
         if (null === $productType || !$productType->stockmanagement_active) {
             return $args;
         }

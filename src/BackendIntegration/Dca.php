@@ -14,11 +14,11 @@
 
 namespace Richardhj\IsotopeSimpleStockManagement\BackendIntegration;
 
-use DcaWizard;
 use Contao\BackendTemplate;
 use Contao\Image;
 use Contao\System;
-use Richardhj\Isotope\SimpleStockManagement\Model\Stock;
+use DcaWizard;
+use Richardhj\IsotopeSimpleStockManagement\Model\Stock;
 
 
 /**
@@ -31,15 +31,15 @@ class Dca
 
     /**
      * @param $records
-     * @param string          $id
-     * @param DcaWizard       $dcaWizard
+     * @param string $id
+     * @param DcaWizard $dcaWizard
      *
      * @return string
      */
     public function generateWizardList($records, $id, $dcaWizard)
     {
         $return = '';
-        $rows   = $dcaWizard->getRows($records);
+        $rows = $dcaWizard->getRows($records);
 
         // Alter the rows
         System::loadLanguageFile('tl_iso_product_collection');
@@ -54,7 +54,7 @@ class Dca
                     // Collection ID
                     $row['product_collection_id'],
                     // Link
-                    Image::getHtml('edit.gif').$row['product_collection_id'],
+                    Image::getHtml('edit.svg') . $row['product_collection_id'],
                     // Collection edit description
                     sprintf($GLOBALS['TL_LANG']['tl_iso_product_collection']['edit'][1], $row['product_collection_id']),
                     REQUEST_TOKEN
@@ -66,11 +66,23 @@ class Dca
         );
 
         if (!empty($rows)) {
-            $template                 = new BackendTemplate('be_widget_dcawizard');
-            $template->headerFields   = $dcaWizard->getHeaderFields();
-            $template->hasRows        = !empty($rows);
-            $template->rows           = $rows;
-            $template->fields         = $dcaWizard->fields;
+
+            $template = new BackendTemplate('be_widget_dcawizard');
+            $template->headerFields = $dcaWizard->getHeaderFields();
+            $template->hasRows = !empty($rows);
+            $template->rows = $rows;
+            $template->dcaLabel = function ($strField) {
+                return $GLOBALS['TL_LANG']['tl_iso_product'][$strField][0] ?? $strField;
+            };
+
+            $template->dcaValue = function ($strField, $strValue) {
+                if ($strField == 'tstamp') {
+                    return date('d.m.Y H:i', $strValue);
+                }
+                return $strValue;
+            };
+
+            $template->fields = $dcaWizard->fields;
             $template->showOperations = $dcaWizard->showOperations;
             $template->foreignTable = 'tl_iso_stock';
 
@@ -82,7 +94,7 @@ class Dca
                 return $dcaWizard->generateRowOperation($operation, $row);
             };
 
-            $dom = new DOMDocument('1.0', 'utf-8');
+            $dom = new \DOMDocument('1.0', 'utf-8');
             $dom->loadHTML($template->parse());
             $return = $dom->saveHTML($dom->getElementsByTagName('table')->item(0));
         }
