@@ -36,7 +36,6 @@ class LabelCallbackListener
         list ($callbackClass, $callbackMethod) = $GLOBALS['TL_DCA']['tl_iso_product']['list']['label']['label_callback.default'];
         $args = System::importStatic($callbackClass)->{$callbackMethod}($row, $label, $dc, $args);
 
-        $GLOBALS['TL_DCA']['tl_iso_product']['list']['label']['fields'][] = 'stock';
         $index = array_search('stock', $GLOBALS['TL_DCA']['tl_iso_product']['list']['label']['fields'], true);
 
         $product = Product::findByPk($row['id']);
